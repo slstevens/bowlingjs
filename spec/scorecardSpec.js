@@ -1,7 +1,81 @@
-// describe('Scorecard', function() {
+describe('Scorecard', function() {
 
+	var scorecard;
 
-// });
+	beforeEach(function() {
+		
+		frame = new Frame;
+		game = new Game;
+
+	});
+	
+	it('can add a new frame', function() {
+		game.add(frame);
+		expect(game.scorecard.length).toEqual(1);
+	});
+
+	it('knows the score of a frame', function() {
+		frame.score(3, 4);
+		game.add(frame);
+		expect(game.scorecard[0].rollOne).toEqual(3);
+		expect(game.scorecard[0].rollTwo).toEqual(4);
+	});
+
+	it('should know the total game score', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame1.score(3, 4);
+		frame2.score(5, 5);
+		game.add(frame1)
+		game.add(frame2)
+		expect(game.totalScore()).toEqual(17)
+	});
+
+	xit('should know award a strike bonus', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame1.score(10, 0);
+		frame2.score(5, 5);
+		game.add(frame1)
+		game.add(frame2)
+		expect(game.totalScore()).toEqual(30)		
+	});
+
+	it('should know a strike bonus', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame1.score(10, 0);
+		frame2.score(5, 5);
+		game.add(frame1)
+		game.add(frame2)		
+		expect(game.scorecard[0].isStrike()).toBe(true)
+	});
+
+	it('should allow a frame to have a strike bonus', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame1.score(10, 0)
+		frame2.score(2, 5)
+		game.add(frame1)
+		game.add(frame2)
+		game.calculateStrikeBonus()
+		expect(game.scorecard[0].strikeBonus).toEqual(7)
+	});
+
+	it('should not add a score bonus if no strike', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame3 = new Frame;
+		frame1.score(10, 0)
+		frame2.score(2, 5)
+		frame3.score(1, 0)
+		game.add(frame1)
+		game.add(frame2)
+		game.add(frame3)
+		expect(game.scorecard[1].strikeBonus).toEqual(null)
+	});
+
+});
 
 describe('Frame', function() {
 
@@ -43,6 +117,12 @@ describe('Frame', function() {
 		frame.score(10,0);
 		expect(frame.isSpare()).toBe(false);
 	});
+
+	it('should have a strike bonus', function() {
+		expect(frame.strikeBonus).toEqual(null)
+	});
+
+
 
 });
 

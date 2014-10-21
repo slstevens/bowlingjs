@@ -62,7 +62,7 @@ describe('Scorecard', function() {
 		expect(game.scorecard[0].strikeBonus).toEqual(7)
 	});
 
-	it('should not add a score bonus if no strike', function() {
+	it('should not add a strike bonus if no strike', function() {
 		frame1 = new Frame;
 		frame2 = new Frame;
 		frame3 = new Frame;
@@ -72,8 +72,31 @@ describe('Scorecard', function() {
 		game.add(frame1)
 		game.add(frame2)
 		game.add(frame3)
+		game.calculateStrikeBonus()
 		expect(game.scorecard[1].strikeBonus).toEqual(null)
 	});
+
+	it('should know a spare', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame1.score(5, 5);
+		frame2.score(5, 5);
+		game.add(frame1)
+		game.add(frame2)		
+		expect(game.scorecard[0].isSpare()).toBe(true)
+	});
+
+	it('should allow a frame to have a spare bonus', function() {
+		frame1 = new Frame;
+		frame2 = new Frame;
+		frame1.score(5, 5)
+		frame2.score(2, 5)
+		game.add(frame1)
+		game.add(frame2)
+		game.calculateSpareBonus()
+		expect(game.scorecard[0].spareBonus).toEqual(2)
+	});
+
 
 });
 

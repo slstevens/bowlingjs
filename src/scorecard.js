@@ -16,7 +16,6 @@ function Game() {
 Game.prototype.add = function(frame) {
 	this.scorecard.push(frame)
 };
-// Why is this not working!!???
 Game.prototype.totalScore = function() {
     var total = 0;
     for(i = 0; i < this.scorecard.length; i++)
@@ -25,31 +24,6 @@ Game.prototype.totalScore = function() {
     }
     return total;
 }; 
-
-function Frame() {
-	this.strikeBonus = null
-	this.spareBonus = null
-};
-
-Frame.prototype.score = function(first_roll, second_roll) {
-	this.rollOne = first_roll;
-	this.rollTwo = second_roll;
-	return this
-};
-
-// Game.prototype.frameScore = function() {
-// 	this.rollOne
-// };
-
-Frame.prototype.isStrike = function() {
-	return (this.rollOne === 10);
-};
-
-Frame.prototype.isSpare = function() {
-	return (this.rollOne + this.rollTwo === 10) && (this.rollOne !== 10)
-};
-
-// Untested code - strikebonus and sparebonus are not automatically calculated. have to call method
 
 Game.prototype.calculateStrikeBonus = function() {
 	for(i = 0; i < this.scorecard.length; i++) {
@@ -68,4 +42,24 @@ Game.prototype.calculateSpareBonus = function() {
 			this.scorecard[i].spareBonus = (this.scorecard[i+1].rollOne)
 		};
 	};
+};
+
+
+function Frame() {
+	this.strikeBonus = null
+	this.spareBonus = null
+};
+
+Frame.prototype.score = function(first_roll, second_roll) {
+	this.rollOne = first_roll;
+	this.rollTwo = second_roll;
+	return this
+};
+
+Frame.prototype.isStrike = function() {
+	return (this.rollOne === 10);
+};
+
+Frame.prototype.isSpare = function() {
+	return (this.rollOne + this.rollTwo === 10) && (this.rollOne !== 10)
 };

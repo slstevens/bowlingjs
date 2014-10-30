@@ -12,11 +12,13 @@ describe('Scorecard', function() {
 
 	});
 	
+	//Change this to a 'change by 1'
 	xit('can add a new frame', function() {
 		game.add(frame);
 		expect(game.scorecard.length).toEqual(1);
 	});
 
+	//this does not work now that I've initialised a game with 10 frames
 	xit('knows the score of a frame', function() {
 		frame.score(3, 4);
 		game.add(frame);
@@ -24,19 +26,7 @@ describe('Scorecard', function() {
 		expect(game.scorecard[0].rollTwo).toEqual(4);
 	});
 
-	// move this
-	// it('knows the total frame score', function() {
-	// 	frame1 = new Frame;
-	// 	frame2 = new Frame;
-	// 	frame1.score(10, 0);
-	// 	frame2.score(5, 4);
-	// 	game.add(frame1)
-	// 	game.add(frame2)
-	// 	game.calculateStrikeBonus()
-	// 	game.calculateSpareBonus()
-	// 	expect(game.scorecard[0].frameScore()).toEqual(28)
-	// });
-
+	//this does not work now that I've initialised a game with 10 frames
 	xit('should know the total game score', function() {
 		frame1.score(3, 4);
 		frame2.score(5, 5);
@@ -107,6 +97,10 @@ describe('Scorecard', function() {
 	// if frame10.isStrike() then add a roll
 	// 	Maybe also create a game.setup method, which just sets up the frames and adds them to the game.
 	// });
+	// it('should allow the tenth frame to have another frame if strike happens', function() {
+	// 	game.scorecard[9].score(10, 0)
+	// 	expect(game.scorecard[9].isStrike).toBe(true)
+	// });
 
 });
 
@@ -154,7 +148,5 @@ describe('Frame', function() {
 	it('should have a strike bonus', function() {
 		expect(frame.strikeBonus).toEqual(null)
 	});
-
-
 
 });
